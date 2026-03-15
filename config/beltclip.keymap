@@ -1,0 +1,34 @@
+/*
+ * Belt Clip Keymap
+ *
+ * One button, two behaviors:
+ *   Short press  = F13 → Tasker opens assistant with mic auto-start
+ *   Long press   = F14 → Tasker sends stop command (optional, see README)
+ *
+ * Hold time is 500ms by default. Adjust hold-time-ms below if needed.
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    behaviors {
+        td_mic: tap_dance_mic {
+            compatible = "zmk,behavior-hold-tap";
+            label = "TAP_HOLD_MIC";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <500>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+        default_layer {
+            bindings = <
+                &td_mic F14 F13
+            >;
+        };
+    };
+};
